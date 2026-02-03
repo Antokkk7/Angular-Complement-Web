@@ -7,17 +7,10 @@
         <p class="mb-0">{{ tache.nom }}</p>
 
         <div class="d-flex justify-content-end">
-            <button class="btn">
-                <i class="fa-solid fa-backward"></i>
-            </button>
-
-            <button class="btn">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
-
-            <button class="btn">
-                <i class="fa-solid fa-forward"></i>
-            </button>
+            <button class="btn" (click)="onRegresse()" [disabled]="tache.etat==EtatTache.AFAIRE"> <i class="fa-solid fa-backward"></i></button>
+            <a class="btn" routerLink="/tache/{{ tache.id }}"><i class="fa-solid fa-magnifying"></i></a>
+            
+            <button class="btn" (click)="onProgresse()" [disabled]="tache.etat==EtatTache.TERMINEE"> <i class="fa-solid fa-forward"></i></button>
         </div>
     </div>
 </li>
