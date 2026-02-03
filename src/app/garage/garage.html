@@ -1,9 +1,10 @@
-<h2>Garage {{nom}}</h2>
-<button (click)="onRenommer()">renommer</button>
-<p>Voici nos voitures :</p>
+<h2>Garage {{ nom }}</h2>
+<button (click)="onRenommer()">Renommer</button>
+<p>Voici nos voitures : </p>
 <ul>
-  @for (marque of marques; track marque) {
-    <app-voiture [marque]="marque"></app-voiture>
-  }
-  <app-voiture [marque]="nom" ></app-voiture>
+    @for (m of marques; track m) {
+        <app-voiture [marque]="m"></app-voiture>
+    }
+    
+    <app-voiture [marque]="nom"></app-voiture>
 </ul>

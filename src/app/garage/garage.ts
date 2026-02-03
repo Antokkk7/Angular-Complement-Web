@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Voiture } from "../voiture/voiture";
+import { Voiture } from '../voiture/voiture';
 import { RegistreService } from '../service/registre-service';
 
 @Component({
@@ -7,25 +7,23 @@ import { RegistreService } from '../service/registre-service';
   imports: [Voiture],
   templateUrl: './garage.html',
   styleUrl: './garage.css',
-})
+})  
 export class Garage {
 
-  // Injection du service via la syntaxe fonctionnelle moderne
-  private readonly serviceRegistre = inject(RegistreService);
+  private readonly serviceRegistre = inject(RegistreService)
 
-  public nom: string = "FP-Auto"
-  public marques: string[] = ["Audi", "Renault", "Peugeot"]
-
+  public nom: String = "FP-Auto"
+  public marques: String[] = ["Audi", "Renault", "Peugeot"]
+  
   constructor() {
     console.log("Et hop un nouveau garage !")
-    // On initialise le nom du garage avec celui du service
     this.nom = this.serviceRegistre.nomSociete
   }
 
   public onRenommer(): void {
     this.nom = this.nom.split('').reverse().join('')
-    this.nom += '*'
-    // Et on enregistre la modification dans le service Registre
+    this.nom += ''
+
     this.serviceRegistre.nomSociete = this.nom
   }
 }
