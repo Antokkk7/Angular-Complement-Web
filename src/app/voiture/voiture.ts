@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -8,13 +8,13 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './voiture.css',
 })
 export class Voiture {
-  public marque: String = "Renault"
-  public vitesse: number = Math.round(Math.random()*130)
+  @Input()
+  public marque:  string = "Renault"
+  public vitesse: number = Math.round(Math.random() * 130)
 
   public onAcceleration(): void {
     this.vitesse += 4
   }
-
   public onFreinage(): void {
     this.vitesse -= 6
   }
