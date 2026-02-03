@@ -1,0 +1,9 @@
+<li>
+    <button (click)="onAcceleration()" [disabled]= "vitesse>130">+</button>
+    <button (click)="onFreinage()" [disabled]= "vitesse<=0">-</button>
+    {{ marque }} / {{ vitesse }} km/h
+    @if (vitesse > 90) {
+        <span style="border: solid 1px red;">TROP VITE</span> 
+    }
+    <input type="text" [(ngModel)]="marque">
+</li>
