@@ -1,13 +1,14 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Garage } from './garage/garage';
+import { TacheList } from './tache/tache-list/tache-list';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Garage],
+  standalone: true,
+  imports: [RouterOutlet, TacheList],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
-  protected readonly title = signal('angular-td');
+
 }

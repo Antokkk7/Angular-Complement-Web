@@ -2,11 +2,12 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "cli": {
-    "packageManager": "npm"
+    "packageManager": "npm",
+    "analytics": false
   },
   "newProjectRoot": "projects",
   "projects": {
-    "angular-td": {
+    "tp-todo": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:class": {
@@ -50,7 +51,12 @@
               }
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/bootswatch/dist/Sketchy/bootstrap.min.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+            ],
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ]
           },
           "configurations": {
@@ -81,10 +87,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "angular-td:build:production"
+              "buildTarget": "tp-todo:build:production"
             },
             "development": {
-              "buildTarget": "angular-td:build:development"
+              "buildTarget": "tp-todo:build:development"
             }
           },
           "defaultConfiguration": "development"

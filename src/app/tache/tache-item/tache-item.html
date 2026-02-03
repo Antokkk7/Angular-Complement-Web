@@ -1,0 +1,23 @@
+<li class="list-group-item"
+    [ngClass]="{'bg-warning'    : tache.etat==EtatTache.AFAIRE,
+                'bg-info'       : tache.etat==EtatTache.ENCOURS,
+                'bg-success'    : tache.etat==EtatTache.TERMINEE}">
+
+    <div class="d-flex justify-content-between">
+        <p class="mb-0">{{ tache.nom }}</p>
+
+        <div class="d-flex justify-content-end">
+            <button class="btn">
+                <i class="fa-solid fa-backward"></i>
+            </button>
+
+            <button class="btn">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+
+            <button class="btn">
+                <i class="fa-solid fa-forward"></i>
+            </button>
+        </div>
+    </div>
+</li>
