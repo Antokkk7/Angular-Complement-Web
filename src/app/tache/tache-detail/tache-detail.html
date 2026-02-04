@@ -1,7 +1,30 @@
-<h2>Tache : </h2>
+<!-- <h2>Tache : </h2>
 
 <p> <b>{{tache.nom}}</b> : {{tache.etat}} </p>
 
 <p>{{tache.memo}}</p>
 
 <a routerLink="/taches" class="btn btn-info"> retour à la liste des tâches</a>
+-->
+
+<table class="table table-hover w-50">
+    <tr>
+        <th>Id : </th>
+        <td>{{tache().id}}</td>
+    </tr>
+    <tr>
+        <th>Nom : </th>
+        <td>{{tache().nom}}</td>
+    </tr>
+    <tr>
+        <th>Etat : </th>
+        <td>{{tache().etat}}</td>
+    </tr>
+    <tr>
+        <th>Memo : </th>
+        <td>{{tache().memo}}</td>
+    </tr>
+</table>
+
+<a routerLink="/taches" class="btn btn-info"> retour à la liste des tâches</a>
+<a [routerLink]="['/tache', 'edit', tache().id]" class="btn btn-primary"> Modifier cette tâche</a>

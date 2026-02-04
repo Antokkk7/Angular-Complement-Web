@@ -8,6 +8,7 @@ export const routes: Routes = [
     { path: 'taches',           component:TacheList },
     { path: 'taches/edit/:id',  component:TacheEdit },
     { path: 'tache/new',        component:TacheEdit },
+    { path: 'tache/:id',        component:TacheDetail },
     { path: 'taches/:id',       component:TacheDetail },
     { path: '',                 component:Accueil, pathMatch:'full' },
     { path: '**',               redirectTo: '' },

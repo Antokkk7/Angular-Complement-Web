@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { Tache } from '../../models/tache';
 import { TacheService } from '../../services/tache-service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -9,9 +9,10 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
   templateUrl: './tache-detail.html',
   styleUrl: './tache-detail.css',
 })
-export class TacheDetail {
+export class TacheDetail implements OnInit {
 
-  tache : Tache = new Tache()
+  // tache : Tache = new Tache()
+  public tache = signal<Tache> (new Tache())
   private tacheService  = inject(TacheService)
   private routeur       = inject(Router)
   private route         = inject(ActivatedRoute)
@@ -20,11 +21,17 @@ export class TacheDetail {
 
   ngOnInit(): void {
     const id = this.route.snapshot.params['id']
-    const tache = this.tacheService.getTache(id)
+    // const tache = this.tacheService.getTache(id)
+    this.tacheService.getTache(id).subscribe({
+      next:tache => this.tache.set(tache),
+      error:err => this.routeur.navigateByUrl('/taches')
+    })
+    /*
     if (tache===undefined) {
       this.routeur.navigateByUrl('/taches')
     } else {
       this.tache = tache
     }
+    */
   }
 }

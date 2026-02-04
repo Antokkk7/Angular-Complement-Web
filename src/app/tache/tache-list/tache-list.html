@@ -1,45 +1,55 @@
-<h2> <b>{{ taches.length }}</b> tâches enregistrées</h2>
+<!-- <h2> <b>{{ taches.length }}</b> tâches enregistrées</h2> -->
+<!-- <h2> <b>{{ (taches|async)?.length }}</b> tâches enregistrées</h2> -->
+@if (taches | async; as listeTaches) {
+    <h2> <b>{{ listeTaches.length }}</b> tâches enregistrées</h2>
 
-<ul class="list-group">
+    <ul class="list-group mb-2">
 
-    <!-- 
-    <li class="list-group-item bg-success">
-    <div class="d-flex justify-content-between">
-        <p>Une tâche terminée (fond === success)</p>
-        <div class="d-flex justify-content-end">
-            <button class="btn"> <i class="fa-solid fa-backward"></i> </button>
-            <a class="btn"> <i class="fa-solid fa-magnifying-glass"></i> </a>
-            <button class="btn"> <i class="fa-solid fa-forward"></i> </button>
+        <!-- 
+        <li class="list-group-item bg-success">
+        <div class="d-flex justify-content-between">
+            <p>Une tâche terminée (fond === success)</p>
+            <div class="d-flex justify-content-end">
+                <button class="btn"> <i class="fa-solid fa-backward"></i> </button>
+                <a class="btn"> <i class="fa-solid fa-magnifying-glass"></i> </a>
+                <button class="btn"> <i class="fa-solid fa-forward"></i> </button>
+            </div>
         </div>
-    </div>
-    </li>
+        </li>
 
-    <li class="list-group-item bg-info">
-    <div class="d-flex justify-content-between">
-        <p>Une tâche en cours (fond === info)</p>
-        <div class="d-flex justify-content-end">
-            <button class="btn"> <i class="fa-solid fa-backward"></i> </button>
-            <a class="btn"> <i class="fa-solid fa-magnifying-glass"></i> </a>
-            <button class="btn"> <i class="fa-solid fa-forward"></i> </button>
+        <li class="list-group-item bg-info">
+        <div class="d-flex justify-content-between">
+            <p>Une tâche en cours (fond === info)</p>
+            <div class="d-flex justify-content-end">
+                <button class="btn"> <i class="fa-solid fa-backward"></i> </button>
+                <a class="btn"> <i class="fa-solid fa-magnifying-glass"></i> </a>
+                <button class="btn"> <i class="fa-solid fa-forward"></i> </button>
+            </div>
         </div>
-    </div>
-    </li>
+        </li>
 
-    <li class="list-group-item bg-warning">
-    <div class="d-flex justify-content-between">
-        <p>Une tâche à faire (fond === warning)</p>
-        <div class="d-flex justify-content-end">
-            <button class="btn"> <i class="fa-solid fa-backward"></i> </button>
-            <a class="btn"> <i class="fa-solid fa-magnifying-glass"></i> </a>
-            <button class="btn"> <i class="fa-solid fa-forward"></i> </button>
+        <li class="list-group-item bg-warning">
+        <div class="d-flex justify-content-between">
+            <p>Une tâche à faire (fond === warning)</p>
+            <div class="d-flex justify-content-end">
+                <button class="btn"> <i class="fa-solid fa-backward"></i> </button>
+                <a class="btn"> <i class="fa-solid fa-magnifying-glass"></i> </a>
+                <button class="btn"> <i class="fa-solid fa-forward"></i> </button>
+            </div>
         </div>
-    </div>
-    </li>
-    -->
+        </li>
+        -->
+
+        <!-- @for (tache of taches; track tache.id) {
+            <app-tache-item [tache]="tache"></app-tache-item>
+        } -->
+
+        @for (tache of listeTaches; track tache.id) {
+            <app-tache-item [tache]="tache"></app-tache-item>
+        }
+    </ul>
 
     <a routerLink='/tache/new' class="btn btn-info">Nouvelle tache</a>
+}
 
-    @for (tache of taches; track tache.id) {
-        <app-tache-item [tache]="tache"></app-tache-item>
-    }
-</ul>
+<a routerLink='/tache/new' class="btn btn-info">Nouvelle tache</a>

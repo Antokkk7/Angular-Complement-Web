@@ -1,58 +1,84 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { EtatTache, Tache } from '../models/tache';
-import { getTestBed } from '@angular/core/testing';
+import { environment } from '../../environments/environment.development';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TacheService {
-  private taches : Tache[] = [
-    {
-      id  : 2,
-      nom : "Sortir du lit",
-      etat: EtatTache.TERMINEE,
-      memo: "Dès que le réveil sonne, ne pas jump sur le tél"
-    },
-    {
-      id  : 3,
-      nom : "Boire de l'eau",
-      etat: EtatTache.AFAIRE,
-      memo: "Boire."
-    },
-    {
-      id  : 5,
-      nom : "Faire du sport",
-      etat: EtatTache.ENCOURS,
-      memo: "Sport à faire."
-    },
-    {
-      id  : 6,
-      nom : "Partir pour l'IUT",
-      etat: EtatTache.AFAIRE,
-      memo: "Sauf le W.E hehehe."
-    },
-  ]
 
-constructor() { }
-getTaches() : Tache[] {
-  return this.taches;
-}
+  // private taches : Tache[] = []
 
-getTache (id:number) : Tache | undefined {
-  return this.taches.find( t => t.id == id)
-}
+  readonly tacheAPI = environment.apiURL +"/taches"
+  private http = inject(HttpClient)
 
-addTache(nouvelleTache:Tache) : Tache {
-  nouvelleTache.id = 1 + this.taches[this.taches.length-1].id
-  this.taches.push(nouvelleTache)
-  return nouvelleTache
-}
-
-updateTache(tache: Tache) {
-  const tachIn = this.getTache(tache.id)
-  if (tachIn) {
-    Object.assign(tachIn, tache)
+  constructor() { }
+    /* 
+    this.http.get<Tache[]>(this.tacheAPI).subscribe({
+      next: taches=> {
+        this.taches.length=0
+        this.taches.push(...taches)
+      },
+      error: err=>console.log("ERREUR LOAD TACHES", err)
+    })
   }
-}
 
+  /
+  const jsonTaches = localStorage.getItem('listeTaches')
+    if (jsonTaches) {
+      this.taches = JSON.parse(jsonTaches)
+    } else {
+      this.saveAllTaches()
+    }
+  } 
+
+  private saveAllTaches() : void {
+    localStorage['listeTaches']= JSON.stringify(this.taches)
+  } */
+
+  getTaches() : Observable<Tache[]> {
+    return this.http.get<Tache[]>(this.tacheAPI)
+  }
+
+  getTache(id:number) : Observable<Tache> {
+    return this.http.get<Tache>(this.tacheAPI+"/"+id)
+  }
+
+  /* addTache(nouvelleTache:Tache) : Tache {
+    nouvelleTache.id = 1 + this.taches[this.taches.length-1].id
+    this.taches.push(nouvelleTache)
+    this.saveAllTaches()
+    return nouvelleTache
+  } */
+
+  addTache(nouvelleTache:Tache) : Observable<Tache> {
+    /* this.http.post<Tache>(this.tacheAPI, nouvelleTache).subscribe({
+      next: tache=> {
+        this.taches.push(tache)
+      },
+      error: err=>console.log("ERREUR ADDTACHE", err)
+    }) 
+    return nouvelleTache; */
+    return this.http.post<Tache>(this.tacheAPI, nouvelleTache)
+  }
+  
+  updateTache(tache: Tache) : Observable<Tache> {
+    /* this.http.put<Tache>(this.tacheAPI+'/'+tache.id, tache).subscribe({
+      next: tacheokBdd=>{
+        const tacheIn = this.getTache(tache.id)
+        if (tacheIn) {
+          Object.assign(tacheIn, tacheokBdd)
+        }
+      },
+      error: err=>console.log("ERREUR MODTACHE", err)
+    })
+  } */
+    return this.http.put<Tache>(this.tacheAPI+'/'+tache.id, tache)
+  }
+
+  deleteTache(id: number): Observable<void> {
+    return this.http.delete<void>(this.tacheAPI+'/'+id)
+  }
 }
