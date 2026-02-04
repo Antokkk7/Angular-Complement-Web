@@ -42,4 +42,17 @@ getTache (id:number) : Tache | undefined {
   return this.taches.find( t => t.id == id)
 }
 
+addTache(nouvelleTache:Tache) : Tache {
+  nouvelleTache.id = 1 + this.taches[this.taches.length-1].id
+  this.taches.push(nouvelleTache)
+  return nouvelleTache
+}
+
+updateTache(tache: Tache) {
+  const tachIn = this.getTache(tache.id)
+  if (tachIn) {
+    Object.assign(tachIn, tache)
+  }
+}
+
 }

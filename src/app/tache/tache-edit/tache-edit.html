@@ -1,0 +1,26 @@
+<h2>{{ tache.id === 0 ? 'Nouvelle tâche' : 'Modifier la tâche' }}</h2>
+
+<form #formulaire="ngForm" (ngSubmit)="onSubmit(formulaire)">
+    <div class="form-group">
+        <label for="nom">Nom</label>
+        <input [(ngModel)]="tache.nom" type="text" name="nom" id="nom" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="etat">Etat</label>
+        <select [(ngModel)]="tache.etat" name="etat" id="etat" class="form-control" required>
+            <option></option>
+            @for (enum of (etatTache | keyvalue); track enum.key) {
+                <option [value]="enum.value">{{ enum.value }}</option>
+            }
+        </select>
+    </div>
+    <div class ="form-group">
+        <label for="memo">Mémo</label>
+        <textarea [(ngModel)]="tache.memo" name="memo" id="memo" clos="30" rows="3" class="form-control" required></textarea>
+    </div>
+    <div class="d-flex btn-group mt-2">
+        <button class="btn btn-succes" type="submit" [disabled]="formulaire.invalid">{{ tache.id === 0 ? 'Créer cette tâche' : 'Modifier cette tâche' }}</button>
+        <a routerLink="/taches" class="btn btn-warning">Annuler</a>
+    </div>
+</form>
+

@@ -37,6 +37,8 @@
     </li>
     -->
 
+    <a routerLink='/tache/new' class="btn btn-info">Nouvelle tache</a>
+
     @for (tache of taches; track tache.id) {
         <app-tache-item [tache]="tache"></app-tache-item>
     }
