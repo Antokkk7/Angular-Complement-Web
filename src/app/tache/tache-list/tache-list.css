@@ -1,0 +1,21 @@
+.chargement {
+    font-size:15px;
+    color:black;
+    background-color: rgb(65, 165, 237);
+    padding: 10px;
+    border-radius: 5px;
+
+    width:50%;
+    height: 50%;
+}
+
+.erreur {
+    font-size:15px;
+    color:black;
+    background-color: red;
+    padding: 10px;
+    border-radius: 5px;
+    
+    width:50%;
+    height: 50%;
+}

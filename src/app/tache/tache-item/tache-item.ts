@@ -32,6 +32,7 @@ export class TacheItem {
         this.tache.etat = EtatTache.TERMINEE;
         break;
     }
+    this.enregistrerTache();
   }
 
   public onRegresse(): void {
@@ -43,6 +44,16 @@ export class TacheItem {
           this.tache.etat = EtatTache.AFAIRE
           break;
     }
+    this.enregistrerTache();
+  }
+
+  private enregistrerTache(): void {
+    this.tacheService.updateTache(this.tache).subscribe({
+      next: () => {
+      },
+      error: err => {
+      }
+    });
   }
 
   public onSupprime(): void {
