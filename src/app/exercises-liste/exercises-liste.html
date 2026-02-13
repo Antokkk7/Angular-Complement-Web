@@ -1,0 +1,41 @@
+<div class="container mt-5">
+  <div class="header">
+    <h1>Liste des Exercices</h1>
+    <button class="btn-refresh" (click)="refresh()" [disabled]="loading">
+      {{ loading ? 'Chargement...' : 'Rafraîchir' }}
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="alert alert-info">
+    Chargement en cours...
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!loading && exercises.length > 0" class="exercises-list">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Description</th>
+          <th>Muscle ciblé</th>
+          <th>Difficulté</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let exercise of exercises" class="exercise-row">
+          <td>{{ exercise.name }}</td>
+          <td>{{ exercise.description }}</td>
+          <td>{{ exercise.targetMuscle }}</td>
+          <td>{{ exercise.difficulty }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="!loading && exercises.length === 0" class="alert alert-warning">
+    Aucun exercice trouvé.
+  </div>
+</div>
