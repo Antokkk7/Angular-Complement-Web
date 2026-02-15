@@ -1,24 +1,29 @@
 <app-menu></app-menu>
 
 <div class="container">
-  <h1 class="my-4">KotnantoK</h1>
-  <h1 class="my-4" style="margin-left:10%">FITNESS</h1>
+  <div style="text-align: center;">
+    <h1 class="my-4">KotnantoK</h1>
+    <h2 class="my-4">FITNESS</h2>
+  </div>
   <div class="blocks-container">
     <div class="block" (click)="navigateTo('routines-liste')">
-      <h2>Routines</h2>
+      <h2>Nos Routines</h2>
       <p>Gestion des routines</p>
     </div>
-    <div class="block">
-      <h2>Bloc 2</h2>
-      <p>À venir</p>
-    </div>
+
     <div class="block" (click)="navigateTo('exercises-liste')">
-      <h2>Exercices</h2>
+      <h2>Nos Exercices</h2>
       <p>Gestion des exercices</p>
     </div>
-    <div class="block">
-      <h2>Bloc 4</h2>
-      <p>À venir</p>
+    
+    <div class="block" (click)="navigateToRoutinesFaites()">
+      <h2>Vos Routines</h2>
+      <p>Les routines que vous avez complétées</p>
+    </div>
+    
+    <div class="block" (click)="navigateToExercicesFaits()">
+      <h2>Vos Exercices</h2>
+      <p>Les exercices que vous avez complétés</p>
     </div>
   </div>
 </div>

@@ -1,6 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 import { ExercisesService } from '../fitness/exercises.service';
+import { CompletionService } from '../fitness/completion.service';
 
 @Component({
   selector: 'app-exercises-liste',
@@ -11,24 +13,33 @@ import { ExercisesService } from '../fitness/exercises.service';
 })
 export class ExercisesListe implements OnInit {
   exercises: any[] = [];
+  allExercises: any[] = [];
   loading = true;
   error: string | null = null;
+  showOnlyCompleted = false;
 
   constructor(
     private exercisesService: ExercisesService,
-    private cdr: ChangeDetectorRef
+    private completionService: CompletionService,
+    private cdr: ChangeDetectorRef,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.loadExercises();
+    this.route.queryParams.subscribe(params => {
+      this.showOnlyCompleted = params['completed'] === 'true';
+      this.loadExercises();
+    });
   }
 
+  // Charge les exercices
   loadExercises(): void {
     this.loading = true;
     this.error = null;
     this.exercisesService.getExercises().subscribe({
       next: (data) => {
-        this.exercises = data;
+        this.allExercises = data;
+        this.applyFilter();
         this.loading = false;
         this.cdr.markForCheck();
       },
@@ -41,6 +52,17 @@ export class ExercisesListe implements OnInit {
     });
   }
 
+  // Applique le filtre : afficher les exercices complétés / tous les exercices
+  applyFilter(): void {
+    if (this.showOnlyCompleted) {
+      this.exercises = this.allExercises.filter(e => this.completionService.isExerciseCompleted(e.id));
+    } else {
+      this.exercises = this.allExercises;
+    }
+    this.cdr.markForCheck();
+  }
+
+  // recharge la liste
   refresh(): void {
     this.loadExercises();
   }

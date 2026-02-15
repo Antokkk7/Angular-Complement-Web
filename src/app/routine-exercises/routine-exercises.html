@@ -1,39 +1,51 @@
 <div class="container mt-5">
   <div class="header">
     <button class="btn-back" (click)="goBack()">← Retour</button>
-    <h1>Exercices de la Routine #{{ routineId }}</h1>
-    <button class="btn-refresh" (click)="refresh()" [disabled]="loading">
-      {{ loading ? 'Chargement...' : 'Rafraîchir' }}
-    </button>
+    <h1>Routine #{{ routineId }} : {{ routine?.name }}</h1>
+    <button class="btn-refresh" (click)="refresh()" [disabled]="loading">{{ loading ? 'Chargement...' : 'Rafraîchir' }}</button>
   </div>
 
-  <div *ngIf="loading" class="alert alert-info">
-    Chargement en cours...
+  <div *ngIf="!loading && routine" class="routine-description" style="text-align: center;">
+    <p>{{ routine.description }}</p>
   </div>
-
-  <div *ngIf="error" class="alert alert-danger">
-    {{ error }}
-  </div>
+  <div *ngIf="loading" class="alert alert-info">Chargement en cours...</div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
 
   <div *ngIf="!loading && exercises.length > 0" class="exercises-list">
     <table class="table">
       <thead>
         <tr>
+          <th style="width: 40px;">Fait</th>
           <th>Nom</th>
-          <th>Description</th>
-          <th>Muscle ciblé</th>
-          <th>Difficulté</th>
+          <th>Répétitions</th>
+          <th>Poids</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let exercise of exercises" class="exercise-row">
+        <tr *ngFor="let exercise of exercises" class="exercise-row" [class.completed]="isExerciseCompleted(exercise.id)">
+          <td style="text-align: center;">
+            <input type="checkbox" [checked]="isExerciseCompleted(exercise.id)" (change)="toggleExerciseCompletion(exercise.id)">
+          </td>
           <td>{{ exercise.name }}</td>
-          <td>{{ exercise.description }}</td>
-          <td>{{ exercise.targetMuscle }}</td>
-          <td>{{ exercise.difficulty }}</td>
+          <td>{{ exercise.repetitions }}</td>
+          <td>{{ exercise.weight === 0 ? 'Poids de corps' : exercise.weight + ' kg' }}</td>
         </tr>
       </tbody>
     </table>
+
+    <!-- Total de reps et de poids -->
+    <div class="totals">
+      <div class="total-row">
+        <strong>Total répétitions :</strong> {{ totalRepetitions }}
+      </div>
+      <div class="total-row">
+        <strong>Poids total :</strong> {{ totalWeight === 0 ? 'Poids de corps' : totalWeight + ' kg' }}
+      </div>
+    <br>
+    <br>
+    <!-- css ? -->
+      <button class="btn-mark-all" (click)="markAllExercisesCompleted()" style="margin-top: 15px;">Tout marquer comme fait</button>
+    </div>
   </div>
 
   <div *ngIf="!loading && exercises.length === 0" class="alert alert-warning">

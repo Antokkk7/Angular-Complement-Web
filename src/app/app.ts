@@ -16,4 +16,12 @@ export class App {
   navigateTo(route: string) {
     this.router.navigate([route]);
   }
+
+  navigateToRoutinesFaites() {
+    this.router.navigate(['/routines-liste'], { queryParams: { completed: true } });
+  }
+
+  navigateToExercicesFaits() {
+    this.router.navigate(['/exercises-liste'], { queryParams: { completed: true } });
+  }
 }

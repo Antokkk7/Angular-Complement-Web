@@ -53,6 +53,7 @@
 .table th {
   font-weight: bold;
   background-color: #f5f5f5;
+  color: black;
 }
 
 .exercise-row:hover {

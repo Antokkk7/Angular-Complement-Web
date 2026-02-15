@@ -1,0 +1,84 @@
+<div class="container mt-5">
+  <h2>{{ isNew ? 'Nouvelle routine' : 'Modifier la routine' }}</h2>
+
+  <form #formulaire="ngForm" (ngSubmit)="onSubmit(formulaire)">
+
+    <div class="form-group">
+      <label for="nom">Nom</label>
+      <input [(ngModel)]="routine.name" type="text" name="nom" id="nom" class="form-control" required>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea [(ngModel)]="routine.description" name="description" id="description" cols="30" rows="3" class="form-control" required></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="status">Statut</label>
+      <select [(ngModel)]="routine.status" name="status" id="status" class="form-control" required>
+        <option value="active">Active</option>
+        <option value="inactive">Inactive</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <h3>Exercices</h3>
+      <div *ngIf="exercises.length > 0" class="exercises-section">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Répétitions</th>
+              <th>Poids</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let exercise of exercises; let i = index">
+              <td>{{ exercise.name }}</td>
+              <td>{{ exercise.repetitions }}</td>
+              <td>{{ exercise.weight === 0 ? 'Poids de corps' : exercise.weight + ' kg' }}</td>
+              <td>
+                <button type="button" class="btn btn-sm btn-warning" (click)="editExercise(i)">Modifier</button>
+                <button type="button" class="btn btn-sm btn-danger" (click)="removeExercise(i)">Retirer</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p *ngIf="exercises.length === 0" class="alert alert-info">Aucun exercice pour cette routine.</p>
+
+      <button type="button" class="btn btn-secondary mt-2" (click)="toggleAddExercise()">{{ showAddExerciseForm ? 'Annuler ajout' : 'Ajouter un exercice' }}
+</button>
+    </div>
+
+    <!-- Formulaire pour ajouter -->
+    <div *ngIf="showAddExerciseForm" class="form-group mt-3 border p-3">
+      <h4>{{ editingExerciseIndex !== null ? 'Modifier exercice' : 'Ajouter un exercice' }}</h4>
+      
+      <div class="form-group">
+        <label for="exerciseName">Nom de l'exercice</label>
+        <input [(ngModel)]="currentExercise.name" type="text" name="exerciseName" id="exerciseName" class="form-control" required>
+      </div>
+
+      <div class="form-group">
+        <label for="repetitions">Répétitions</label>
+        <input [(ngModel)]="currentExercise.repetitions" type="number" name="repetitions" id="repetitions" class="form-control" required>
+      </div>
+
+      <div class="form-group">
+        <label for="weight">Poids (kg) - 0 pour poids de corps</label>
+        <input [(ngModel)]="currentExercise.weight" type="number" name="weight" id="weight" class="form-control" required>
+      </div>
+
+      <button type="button" class="btn btn-primary" (click)="addOrUpdateExercise()">{{ editingExerciseIndex !== null ? 'Mettre à jour' : 'Ajouter' }}</button>
+      <button type="button" class="btn btn-secondary ms-2" (click)="toggleAddExercise()">Annuler</button>
+    </div>
+
+    <div class="d-flex gap-2 mt-4">
+      <button class="btn btn-success" type="submit" [disabled]="formulaire.invalid">{{ isNew ? 'Créer cette routine' : 'Modifier cette routine' }}</button>
+      <a routerLink="/routines-liste" class="btn btn-warning">Annuler</a>
+      <button *ngIf="!isNew" type="button" class="btn btn-danger" (click)="deleteRoutine()">Supprimer cette routine</button>
+    </div>
+  </form>
+</div>

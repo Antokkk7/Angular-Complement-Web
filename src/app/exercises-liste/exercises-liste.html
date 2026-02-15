@@ -19,17 +19,15 @@
       <thead>
         <tr>
           <th>Nom</th>
-          <th>Description</th>
-          <th>Muscle ciblé</th>
-          <th>Difficulté</th>
+          <th>Répétitions</th>
+          <th>Poids</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let exercise of exercises" class="exercise-row">
           <td>{{ exercise.name }}</td>
-          <td>{{ exercise.description }}</td>
-          <td>{{ exercise.targetMuscle }}</td>
-          <td>{{ exercise.difficulty }}</td>
+          <td>{{ exercise.repetitions }}</td>
+          <td>{{ exercise.weight === 0 ? 'Poids de corps' : exercise.weight + ' kg' }}</td>
         </tr>
       </tbody>
     </table>
